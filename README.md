@@ -6,6 +6,7 @@ Required packages:
 - Request
 - Numpy
 - Tabulate
+
 here are all the pip installs:
 
 - pip install pandas
