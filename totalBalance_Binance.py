@@ -9,6 +9,8 @@ def binance_future_wallet_balance(api_key, api_secret, exchange):
     total_balance = 0
     assets = []
 
+    
+
     for i in range(0, len(futures_wallet)):
         if futures_wallet[i]['balance'] != '0.00000000':
             try:
@@ -131,6 +133,62 @@ def binance_margin_wallet_balance(api_key, api_secret, exchange):
         total_balance = 0
         assets = []
 
+        isolated_margin = bp.binance_send_signed_request("https://api.binance.com", 'GET', '/sapi/v1/margin/isolated/account', api_key, api_secret, payload={})
+
+        for i in isolated_margin['assets']:
+            if i['baseAsset']['borrowed'] != 0:
+                try:
+                    coin_price = bp.binance_send_public_request("https://api.binance.com", '/api/v3/ticker/price', payload={'symbol': (i['baseAsset']['asset']+'USDT')})
+                    total = (float(i['baseAsset']['netAsset'])*float(coin_price['price']))
+                    asset={
+                            'Coin':i['baseAsset']['asset'], 
+                            'Contract':i['baseAsset']['asset'],
+                            'QTY':i['baseAsset']['netAsset'], 
+                            'USD Value':total,
+                            'Exchange':exchange, 
+                            'Account':'Margin-Isolated'}
+                    if float(i['baseAsset']['netAsset']) != 0:
+                        assets.append(asset)
+                        total_balance += total
+                except:
+                    asset={
+                            'Coin':i['baseAsset']['asset'], 
+                            'Contract':i['baseAsset']['asset'],
+                            'QTY':i['baseAsset']['netAsset'], 
+                            'USD Value':i['baseAsset']['netAsset'],
+                            'Exchange':exchange, 
+                            'Account':'Margin-Isolated'}
+                    if float(i['baseAsset']['netAsset']) != 0:
+                        assets.append(asset)
+                        total_balance += float(i['baseAsset']['netAsset'])
+
+        for i in isolated_margin['assets']:
+            if i['quoteAsset']['netAsset'] != 0:
+                try:
+                    coin_price = bp.binance_send_public_request("https://api.binance.com", '/api/v3/ticker/price', payload={'symbol': (i['quoteAsset']['asset']+'USDT')})
+                    total = (float(i['baseAsset']['netAsset'])*float(coin_price['price']))
+                    asset={
+                            'Coin':i['quoteAsset']['asset'], 
+                            'Contract':i['quoteAsset']['asset'],
+                            'QTY':i['quoteAsset']['netAsset'], 
+                            'USD Value':total,
+                            'Exchange':exchange, 
+                            'Account':'Margin-Isolated-quote'}
+                    if float(i['quoteAsset']['netAsset']) != 0:
+                        assets.append(asset)
+                        total_balance += total
+                except:
+                    asset={
+                            'Coin':i['quoteAsset']['asset'], 
+                            'Contract':i['quoteAsset']['asset'],
+                            'QTY':i['quoteAsset']['netAsset'], 
+                            'USD Value':i['quoteAsset']['netAsset'],
+                            'Exchange':exchange, 
+                            'Account':'Margin-Isolated-quote'}
+                    if float(i['baseAsset']['netAsset']) != 0:
+                        assets.append(asset)
+                        total_balance += float(i['quoteAsset']['netAsset'])
+
         for i in range(0, len(margin_wallet['userAssets'])):
             if margin_wallet['userAssets'][i]['free'] != '0':
                 try:
@@ -214,9 +272,11 @@ def total_binance_balance(api_key, api_secret, exchange, breakdown):
         balance_break.append(balance)
 
     if breakdown:
-        sf.displayDataFrame(balance_break, True, False)
+        newList = sf.singleDict(balance_break)
+        sf.displayDataFrame(newList, True, False)
         print('Total',f"{total_balance:,.2f}")
     binance = {'total':total_balance, 'coins':coin_assets}
+    
     return binance
 
 def binanceLeaverage(api_key, api_secret, exchange):
@@ -227,3 +287,8 @@ def binanceLeaverage(api_key, api_secret, exchange):
         leverageValue.append(lever)
         
     return leverageValue
+
+#x = binance_margin_wallet_balance(config.binance_key, config.binance_secret, 'Binance')
+#print(x)
+#binance_margin_wallet_balance(config.binance_key, config.binance_secret, 'Binance')
+#total_binance_balance(config.binance_key, config.binance_secret, 'Binance', False)
