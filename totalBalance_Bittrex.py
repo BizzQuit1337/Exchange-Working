@@ -64,7 +64,8 @@ def bittrex_balance(api_key, api_secret, breakdown):
     if breakdown:
         balance = {'Exchange':'Bittrex', 'SPOT':total_balance}
         balance_break.append(balance)
-        sf.displayDataFrame(balance_break, True, False)
+        newList = sf.singleDict(balance_break)
+        sf.displayDataFrame(newList, True, False)
         print('Total',f"{total_balance:,.2f}")
     bittrex = {'total':total_balance, 'coins':coin_assets}
 
