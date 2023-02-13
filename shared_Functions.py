@@ -66,3 +66,16 @@ def displayDataFrame(List, printState, returnList):
         display(df)
     if returnList:
         return positions
+
+def singleDict(list):
+    newList = {'Exchange':''}
+    for i in list:
+        for j in i.items():
+            if j[0] != 'Exchange':
+                newList.update({j[0]:j[1]})
+            else:
+                newList['Exchange'] = j[1] 
+    return [newList]
+
+#List = [{'Exchange': 'Binance', 'USDT-M': 11924.88948775}, {'Exchange': 'Binance', 'SPOT': 52106.25838933826}, {'Exchange': 'Binance', 'Margin': 0.76176}, {'Exchange': 'Binance', 'Earn': 1486.96894324}, {'Exchange': 'Binance', 'Coin-M': 1486.05643450145}]
+#singleDict(List)
