@@ -105,7 +105,8 @@ def okx_wallet_total(api_key, api_secret, api_pass, exchange, breakdown):
         balance_break.append(balance)
 
     if breakdown:
-        sf.displayDataFrame(balance_break, True, False)
+        newList = sf.singleDict(balance_break)
+        sf.displayDataFrame(newList, True, False)
         print('Total',f"{total_balance:,.2f}")
     okx = {'total':total_balance, 'coins':coin_assets}
 
