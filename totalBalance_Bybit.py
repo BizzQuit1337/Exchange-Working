@@ -78,7 +78,8 @@ def total_bybit_balance(api_key, api_secret, exchange, breakdown):
     #print(pd.DataFrame(assets), '\nTotal Bybit balance: ', total_balance)
 
     if breakdown:
-        sf.displayDataFrame(balance_break, True, False)
+        newList = sf.singleDict(balance_break)
+        sf.displayDataFrame(newList, True, False)
         print('Total',f"{total_balance:,.2f}")
     bybit = {'total':total_balance, 'coins':coin_assets}
 
@@ -88,7 +89,7 @@ def bybitLeaverage(api_key, api_secret, exchange):
     leverageValue = []
 
     for i in [bybit_futures_wallet(api_key, api_secret, exchange)]:
-        lever = {'USD Value':i[0], 'Account':'futures', 'exchange':'Bybit'}
+        lever = {'USD Value':i[0], 'Account':'USDT-M', 'exchange':'Bybit'}
         leverageValue.append(lever)
 
     return leverageValue
