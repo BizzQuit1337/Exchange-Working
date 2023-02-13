@@ -98,6 +98,9 @@ def usdt_Value():
     }
 
     sorted_assets.append(breakAsset)
+    #for i in sorted_assets:
+    #    if i['Coin'] == 'sc':
+    #        print(i)
 
     #sf.saveExcel('sorted_assets.xlsx', sorted_assets)
 
@@ -110,8 +113,8 @@ def usdt_Value():
     for i in sorted_assets:
         try:
             if preCoin == i['Coin']:
-                coinUSD += i['USD Value']
-                coinQTY += i['QTY']
+                coinUSD += float(i['USD Value'])
+                coinQTY += float(i['QTY'])
             else:
                 if preCoin == 'USD' or preCoin == 'USDT' or preCoin == 'USDC' or preCoin == 'EUR' or preCoin == 'BUSD':
                     currency = {
@@ -132,8 +135,8 @@ def usdt_Value():
                 coinQTY = i['QTY']
         except:
             preCoin = i['Coin']
-            coinUSD += i['USD Value']
-            coinQTY += i['QTY']
+            coinUSD += float(i['USD Value'])
+            coinQTY += float(i['QTY'])
 
     #sf.saveExcel('cond_assets.xlsx', cond_assets)
 
