@@ -174,5 +174,3 @@ def leverValues(api_key, api_secret, exchange):
         leverValue.append(lever)
 
     return leverValue
-
-get_coinM_pos(config.binance_key, config.binance_secret, 'blah blah')
