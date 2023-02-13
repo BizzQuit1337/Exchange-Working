@@ -106,7 +106,8 @@ def gate_total_balance(api_key, api_secret, breakdown):
     #print(pd.DataFrame(assets), '\nTotal Gate balance: ', total_balance)
 
     if breakdown:
-        sf.displayDataFrame(balance_break, True, False)
+        newList = sf.singleDict(balance_break)
+        sf.displayDataFrame(newList, True, False)
         print('Total',f"{total_balance:,.2f}")
     gate = {'total':total_balance, 'coins':coin_assets}
 
@@ -116,7 +117,7 @@ def gateLeaverage(api_key, api_secret):
     leverageValue = []
 
     for i in [gate_swap_balance(api_key, api_secret)]:
-        lever = {'USD Value':i[0], 'Account':'Future', 'exchange':'Gate'}
+        lever = {'USD Value':i[0], 'Account':'USDT-M', 'exchange':'Gate'}
         leverageValue.append(lever)
         if lever['USD Value'] <= 0.01:
             lever['USD Value'] = 0
