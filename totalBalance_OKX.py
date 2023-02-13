@@ -20,7 +20,7 @@ def okx_funding_wallet_balance(api_key, api_secret, api_pass, exchange):
                     'QTY':round(float(funding_wallet['data'][i]['bal']),6), 
                     'USD Value':round(total,2),
                     'Exchange':exchange, 
-                    'Account':'Funding'}
+                    'Account':'Spot'}
                 assets.append(asset)
         except:
             total_balance += funding_wallet['data'][i]['bal']
@@ -31,10 +31,10 @@ def okx_funding_wallet_balance(api_key, api_secret, api_pass, exchange):
                     'QTY':round(float(funding_wallet['data'][i]['bal']),6), 
                     'USD Value':round(float(funding_wallet['data'][i]['eqUsd']),2),
                     'Exchange':exchange, 
-                    'Account':'Funding'}
+                    'Account':'Spot'}
                 assets.append(asset)
 
-    return [total_balance, 'Trading', assets]
+    return [total_balance, 'Spot', assets]
 
 def okx_trading_wallet_balance(api_key, api_secret, api_pass, exchange):
     trading_wallet = ow.get_okx_trading_wallet(api_key, api_secret, api_pass)
@@ -53,10 +53,10 @@ def okx_trading_wallet_balance(api_key, api_secret, api_pass, exchange):
                 'QTY':round(float(trading_wallet['data'][0]['details'][i]['cashBal']),6), 
                 'USD Value':round(float(trading_wallet['data'][0]['details'][i]['eqUsd']),2),
                 'Exchange':exchange, 
-                'Account':'Trading'}
+                'Account':'USDT-M'}
             assets.append(asset)
 
-    return [total_balance, 'Trading', assets]
+    return [total_balance, 'USDT-M', assets]
 
 def get_earn_balance(api_key, api_secret, api_pass, exchange):
     earn_wallet = ow.get_earn(api_key, api_secret, api_pass)
