@@ -37,7 +37,7 @@ def kraken_spot_wallet_balance(api_key, api_secret):
                     y = re.sub(pattern, '', x[0])
                     asset = {
                         'Coin':y, 
-                        'Contract':y,
+                        'Contract':i,
                         'QTY':round(float(spot_wallet['result'][i]),2), 
                         'USD Value':round(float(spot_wallet['result'][i]),2),
                         'Exchange':exchange, 
