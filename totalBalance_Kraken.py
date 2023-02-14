@@ -35,14 +35,26 @@ def kraken_spot_wallet_balance(api_key, api_secret):
                     x = i.split('.')
                     pattern = r'[0-9]'
                     y = re.sub(pattern, '', x[0])
-                    asset = {
+                    try:
+                        coin_price = kw.get_kraken_current_price(y, 'USD')
+                        total = float(spot_wallet['result'][i])*float(coin_price)
+                        asset = {
                         'Coin':y, 
                         'Contract':i,
                         'QTY':round(float(spot_wallet['result'][i]),2), 
-                        'USD Value':round(float(spot_wallet['result'][i]),2),
+                        'USD Value':total,
                         'Exchange':exchange, 
                         'Account':'SPOT'}
-                    assets.append(asset)
+                        assets.append(asset)
+                    except:
+                        asset = {
+                            'Coin':y, 
+                            'Contract':i,
+                            'QTY':round(float(spot_wallet['result'][i]),2), 
+                            'USD Value':round(float(spot_wallet['result'][i]),2),
+                            'Exchange':exchange, 
+                            'Account':'SPOT'}
+                        assets.append(asset)
                 else:
                     asset = {
                         'Coin':i, 
@@ -142,4 +154,3 @@ def total_kraken_balance(api_key_f, api_secret_f, api_key_s, api_secret_s, break
 #print(total_kraken_balance(config.kraken_futures_key, config.kraken_futures_secret, config.kraken_key, config.kraken_secret, False))
 #kraken_futures_wallet_balance(config.kraken_futures_key, config.kraken_futures_secret)
 #total_kraken_balance(config.kraken_futures_key, config.kraken_futures_secret, config.kraken_key, config.kraken_secret, False)
-#print(kraken_spot_wallet_balance(config.kraken_key, config.kraken_secret))
