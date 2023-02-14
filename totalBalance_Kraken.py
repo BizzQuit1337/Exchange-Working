@@ -33,7 +33,7 @@ def kraken_spot_wallet_balance(api_key, api_secret):
             if round(float(spot_wallet['result'][i]),2) != 0:
                 asset = {
                     'Coin':i, 
-                    'Cointract':i,
+                    'Contract':i,
                     'QTY':round(float(spot_wallet['result'][i]),2), 
                     'USD Value':round(float(spot_wallet['result'][i]),2),
                     'Exchange':exchange, 
