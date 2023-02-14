@@ -1,4 +1,3 @@
-import config
 import huobi_wallet as hw
 import pandas as pd
 import requests

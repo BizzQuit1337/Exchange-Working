@@ -1,6 +1,6 @@
 import Gate_wallet as gw
 import shared_Functions as sf
-import config
+import config_ocar
 
 def get_usdt_pos(api_key, api_secret, exchange):
     usdtPos = gw.send_signed_request('/futures/usdt/positions', api_key, api_secret)
@@ -62,4 +62,4 @@ def leverValues(api_key, api_secret, exchange):
 
     return leverValue
 
-get_usdt_pos(config.gate_key, config.gate_secret, 'gatesteing')
+get_usdt_pos(config_ocar.gate_key, config_ocar.gate_secret, 'gatesteing')

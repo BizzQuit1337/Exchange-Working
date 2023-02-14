@@ -1,7 +1,7 @@
 import bybit_wallet as bw
 import pandas as pd
 import shared_Functions as sf
-import config
+import config_ocar
 
 def bybit_futures_wallet(api_key, api_secret, exchange):
     futures_wallet = bw.signed_request(api_key, api_secret, '/v2/private/wallet/balance')

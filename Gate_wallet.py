@@ -1,5 +1,4 @@
 import time, hashlib, hmac, requests
-import config
 
 def signature(method, url, chiave_gate, segreta_gate, query_string=None, payload_string=None):
     key = chiave_gate

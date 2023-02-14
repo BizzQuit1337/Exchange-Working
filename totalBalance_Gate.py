@@ -1,5 +1,4 @@
 import Gate_wallet as gw
-import config
 import pandas as pd
 import shared_Functions as sf
 

@@ -1,4 +1,4 @@
-import config
+import config_ocar
 import huobi_wallet as hw
 import shared_Functions as sf
 
@@ -204,6 +204,6 @@ def leverValues(api_key, api_secret, exchange):
 
     return leverValue
 
-#x = leverValues(config.huobi_key, config.huobi_secret, 'jj')
+#x = leverValues(config_ocar.huobi_key, config_ocar.huobi_secret, 'jj')
 
 #sf.displayDataFrame(x, True)

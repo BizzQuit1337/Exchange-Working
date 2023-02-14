@@ -1,5 +1,5 @@
 import kraken_wallet as kw
-import config, re
+import config_ocar, re
 import pandas as pd
 import shared_Functions as sf
 

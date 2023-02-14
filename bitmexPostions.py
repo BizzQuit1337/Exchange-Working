@@ -1,6 +1,5 @@
 import bitmex_wallet as bw
 import shared_Functions as sf
-import config
 
 def get_usdt_pos(api_key, api_secret, exchange):
     usdtPos = bw.signed_request('/api/v1/position', api_key, api_secret)

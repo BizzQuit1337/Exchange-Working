@@ -1,16 +1,16 @@
 import binancePositions, bitmexPostions, bybitPositions, gatePositions, huobiPositions, krakenPositions, okxPositions
-import config
+import config_ocar
 import pandas as pd
 import shared_Functions as sf
 
 def get_leverageValue():
     all_positions = []
-    for i in [binancePositions.leverValues(config.binance_key, config.binance_secret, 'Binance'), huobiPositions.leverValues(config.huobi_key, config.huobi_secret, 'Huobi'), okxPositions.leverValues(config.okx_key, config.okx_secret, config.okx_passphrase, 'OKX'), bybitPositions.leverValues(config.bybit_key, config.bybit_secret, 'Bybit'), gatePositions.leverValues(config.gate_key, config.gate_secret, 'Gate'), bitmexPostions.leverValues(config.bitmex_key, config.bitmex_secret, 'Bitmex')]:
+    for i in [binancePositions.leverValues(config_ocar.binance_key, config_ocar.binance_secret, 'Binance'), huobiPositions.leverValues(config_ocar.huobi_key, config_ocar.huobi_secret, 'Huobi'), okxPositions.leverValues(config_ocar.okx_key, config_ocar.okx_secret, config_ocar.okx_passphrase, 'OKX'), bybitPositions.leverValues(config_ocar.bybit_key, config_ocar.bybit_secret, 'Bybit'), gatePositions.leverValues(config_ocar.gate_key, config_ocar.gate_secret, 'Gate'), bitmexPostions.leverValues(config_ocar.bitmex_key, config_ocar.bitmex_secret, 'Bitmex')]:
         df = sf.displayDataFrame(i, False, True)
         all_positions.append(df)
     return all_positions
             
-#x = get_all_positions(config.binance_key, config.bitmex_key, config.bybit_key, config.gate_key, config.huobi_key, config.kraken_futures_key, config.okx_key, config.binance_secret, config.bitmex_secret, config.bybit_secret, config.gate_secret, config.huobi_secret, config.kraken_futures_secret, config.okx_secret, config.okx_passphrase)
+#x = get_all_positions(config_ocar.binance_key, config_ocar.bitmex_key, config_ocar.bybit_key, config_ocar.gate_key, config_ocar.huobi_key, config_ocar.kraken_futures_key, config_ocar.okx_key, config_ocar.binance_secret, config_ocar.bitmex_secret, config_ocar.bybit_secret, config_ocar.gate_secret, config_ocar.huobi_secret, config_ocar.kraken_futures_secret, config_ocar.okx_secret, config_ocar.okx_passphrase)
 #sf.displayDataFrame(x, True, False)
 #print(pd.DataFrame(x))
 #print(get_leverageValue())

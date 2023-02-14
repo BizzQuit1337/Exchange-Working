@@ -1,4 +1,4 @@
-import config
+import config_ocar
 import okx_wallet as ow
 import shared_Functions as sf
 
@@ -80,4 +80,4 @@ def leverValues(api_key, api_secret, api_pass, exchange):
 
     return leverValue
 
-get_usdt_pos(config.okx_key, config.okx_secret, config.okx_passphrase, 'shit stain')
+get_usdt_pos(config_ocar.okx_key, config_ocar.okx_secret, config_ocar.okx_passphrase, 'shit stain')

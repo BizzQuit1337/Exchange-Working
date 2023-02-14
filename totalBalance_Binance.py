@@ -1,5 +1,5 @@
 import binance_PnL as bp  #This is a customs requests package to get the futures data from binace correctly, the binance api function was not returning correctly
-import config
+import config_ocar
 import pandas as pd
 import shared_Functions as sf
 
@@ -288,7 +288,7 @@ def binanceLeaverage(api_key, api_secret, exchange):
         
     return leverageValue
 
-#x = binance_margin_wallet_balance(config.binance_key, config.binance_secret, 'Binance')
+#x = binance_margin_wallet_balance(config_ocar.binance_key, config_ocar.binance_secret, 'Binance')
 #print(x)
-#binance_margin_wallet_balance(config.binance_key, config.binance_secret, 'Binance')
-#total_binance_balance(config.binance_key, config.binance_secret, 'Binance', False)
+#binance_margin_wallet_balance(config_ocar.binance_key, config_ocar.binance_secret, 'Binance')
+#print(total_binance_balance(config_ocar.binance_key, config_ocar.binance_secret, 'Binance', False))

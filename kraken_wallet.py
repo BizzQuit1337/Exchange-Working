@@ -7,7 +7,6 @@ from uuid import uuid1
 import urllib.parse
 import sys
 from typing import List
-import config
 
 def rest_kraken_wallet(chiave_kraken, segreta_kraken):
     resp = kraken_request('/0/private/Balance', {

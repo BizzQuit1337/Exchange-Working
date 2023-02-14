@@ -1,5 +1,5 @@
 import okx_wallet as ow
-import config
+import config_ocar
 import pandas as pd
 import shared_Functions as sf
 
@@ -122,6 +122,6 @@ def okxLeaverage(api_key, api_secret, api_pass, exchange):
                 leverageValue.append(lever)
     return leverageValue
 
-#print(okxLeaverage(config.okx_key, config.okx_secret, config.okx_passphrase, 'll'))
+#print(okxLeaverage(config_ocar.okx_key, config_ocar.okx_secret, config_ocar.okx_passphrase, 'll'))
 
-#okx_wallet_total(config.okx_key, config.okx_secret, config.okx_passphrase, 'okx')
+#okx_wallet_total(config_ocar.okx_key, config_ocar.okx_secret, config_ocar.okx_passphrase, 'okx')

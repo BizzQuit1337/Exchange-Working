@@ -1,6 +1,5 @@
 import kraken_wallet as kw
 import shared_Functions as sf
-import config
 
 def get_usdt_pos(api_key, api_secret, exchange):
     client = kw.KrakenBaseFuturesAPI(api_key, api_secret, "https://futures.kraken.com")

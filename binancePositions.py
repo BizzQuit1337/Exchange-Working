@@ -1,6 +1,5 @@
 import binance_PnL as bp
 import shared_Functions as sf
-import config 
 
 def get_usdt_pos(api_key, api_secret, exchange):
     usdtPos = bp.binance_send_signed_request("https://fapi.binance.com", 'GET', '/fapi/v2/positionRisk', api_key, api_secret, payload={})

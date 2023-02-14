@@ -1,5 +1,5 @@
 import bitmex_wallet as bw
-import config
+import config_ocar
 import pandas as pd
 import shared_Functions as sf
 

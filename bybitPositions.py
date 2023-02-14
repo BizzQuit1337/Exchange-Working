@@ -1,5 +1,4 @@
 import bybit_wallet as bw
-import config
 import shared_Functions as sf
 
 def get_usdt_pos(api_key, api_secret, exchange):

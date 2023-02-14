@@ -1,5 +1,5 @@
 import binancePositions, bitmexPostions, bybitPositions, gatePositions, huobiPositions, krakenPositions, okxPositions
-import config
+import config_ocar
 import pandas as pd
 import shared_Functions as sf
 import all_balances as ab
@@ -10,7 +10,7 @@ def get_all_positions():
     positions = []
     errorCount = 0
     total_USD = 0
-    for i in [binancePositions.all_positions(config.binance_key, config.binance_secret, 'Binance'), bitmexPostions.get_usdt_pos(config.bitmex_key, config.bitmex_secret, 'Bitmex')['assets'], bybitPositions.get_usdt_pos(config.bybit_key, config.bybit_secret, 'Bybit')['assets'], gatePositions.get_usdt_pos(config.gate_key, config.gate_secret, 'Gate')['assets'], huobiPositions.get_all_positions(config.huobi_key, config.huobi_secret, 'Huobi'), krakenPositions.get_usdt_pos(config.kraken_futures_key, config.kraken_futures_secret, 'Kraken'), okxPositions.get_usdt_pos(config.okx_key, config.okx_secret, config.okx_passphrase, 'OKX')['assets'], binancePositions.all_positions(config.binance_sub_key, config.binance_sub_secret, 'Binance-sub'), bybitPositions.get_usdt_pos(config.bybit_sub_key, config.bybit_sub_secret, 'Bybit-sub')['assets'], okxPositions.get_usdt_pos(config.okx_key_sub, config.okx_secret_sub, config.okx_pass_sub, 'OKX-sub')['assets'], huobiPositions.get_all_positions(config.huobi_key_sub, config.huobi_secret_sub, 'Huobi-sub')]:
+    for i in [binancePositions.all_positions(config_ocar.binance_key, config_ocar.binance_secret, 'Binance'), bitmexPostions.get_usdt_pos(config_ocar.bitmex_key, config_ocar.bitmex_secret, 'Bitmex')['assets'], bybitPositions.get_usdt_pos(config_ocar.bybit_key, config_ocar.bybit_secret, 'Bybit')['assets'], gatePositions.get_usdt_pos(config_ocar.gate_key, config_ocar.gate_secret, 'Gate')['assets'], huobiPositions.get_all_positions(config_ocar.huobi_key, config_ocar.huobi_secret, 'Huobi'), krakenPositions.get_usdt_pos(config_ocar.kraken_futures_key, config_ocar.kraken_futures_secret, 'Kraken'), okxPositions.get_usdt_pos(config_ocar.okx_key, config_ocar.okx_secret, config_ocar.okx_passphrase, 'OKX')['assets'], binancePositions.all_positions(config_ocar.binance_sub_key, config_ocar.binance_sub_secret, 'Binance-sub'), bybitPositions.get_usdt_pos(config_ocar.bybit_sub_key, config_ocar.bybit_sub_secret, 'Bybit-sub')['assets'], okxPositions.get_usdt_pos(config_ocar.okx_key_sub, config_ocar.okx_secret_sub, config_ocar.okx_pass_sub, 'OKX-sub')['assets'], huobiPositions.get_all_positions(config_ocar.huobi_key_sub, config_ocar.huobi_secret_sub, 'Huobi-sub')]:
         if str(type(i)) == "<class 'dict'>":
             total_USD += i['USD Value']
             positions.append(i)
@@ -34,18 +34,18 @@ def get_total_balance():
     balances = []
     total_total_balance = 0
     sub_total_balance = 0
-    total_total_balance +=  totalBalance_OKX.okx_wallet_total(config.okx_key, config.okx_secret, config.okx_passphrase, 'OKX', True)['total']
-    sub_total_balance +=  totalBalance_OKX.okx_wallet_total(config.okx_key_sub, config.okx_secret_sub, config.okx_pass_sub, 'OKX-sub', True)['total']
-    total_total_balance += totalBalance_Binance.total_binance_balance(config.binance_key, config.binance_secret, 'Binance', True)['total']
-    sub_total_balance += totalBalance_Binance.total_binance_balance(config.binance_sub_key, config.binance_sub_secret, 'Binance-sub', True)['total']
-    total_total_balance += totalBalance_Kraken.total_kraken_balance(config.kraken_futures_key, config.kraken_futures_secret, config.kraken_key, config.kraken_secret, True)['total']
-    total_total_balance += totalBalance_Huobi.total_huobi_balance(config.huobi_key, config.huobi_secret, config.huobi_spot_id, 'Huobi', True)['total']
-    sub_total_balance += totalBalance_Huobi.total_huobi_balance(config.huobi_key_sub, config.huobi_secret_sub, config.huobi_spot_id_sub, 'Huobi-sub', True)['total']
-    total_total_balance += totalBalance_Bitmex.bitmex_wallet(config.bitmex_key, config.bitmex_secret, True)['total']
-    total_total_balance += totalBalance_Gate.gate_total_balance(config.gate_key, config.gate_secret, True)['total']
-    total_total_balance += totalBalance_Bittrex.bittrex_balance(config.bittrex_key, config.bittrex_secret, True)['total']
-    total_total_balance += totalBalance_Bybit.total_bybit_balance(config.bybit_key, config.bybit_secret, 'Bybit', True)['total']
-    sub_total_balance += totalBalance_Bybit.total_bybit_balance(config.bybit_sub_key, config.bybit_sub_secret, 'Bybit-sub', True)['total']
+    total_total_balance +=  totalBalance_OKX.okx_wallet_total(config_ocar.okx_key, config_ocar.okx_secret, config_ocar.okx_passphrase, 'OKX', True)['total']
+    sub_total_balance +=  totalBalance_OKX.okx_wallet_total(config_ocar.okx_key_sub, config_ocar.okx_secret_sub, config_ocar.okx_pass_sub, 'OKX-sub', True)['total']
+    total_total_balance += totalBalance_Binance.total_binance_balance(config_ocar.binance_key, config_ocar.binance_secret, 'Binance', True)['total']
+    sub_total_balance += totalBalance_Binance.total_binance_balance(config_ocar.binance_sub_key, config_ocar.binance_sub_secret, 'Binance-sub', True)['total']
+    total_total_balance += totalBalance_Kraken.total_kraken_balance(config_ocar.kraken_futures_key, config_ocar.kraken_futures_secret, config_ocar.kraken_key, config_ocar.kraken_secret, True)['total']
+    total_total_balance += totalBalance_Huobi.total_huobi_balance(config_ocar.huobi_key, config_ocar.huobi_secret, config_ocar.huobi_spot_id, 'Huobi', True)['total']
+    sub_total_balance += totalBalance_Huobi.total_huobi_balance(config_ocar.huobi_key_sub, config_ocar.huobi_secret_sub, config_ocar.huobi_spot_id_sub, 'Huobi-sub', True)['total']
+    total_total_balance += totalBalance_Bitmex.bitmex_wallet(config_ocar.bitmex_key, config_ocar.bitmex_secret, True)['total']
+    total_total_balance += totalBalance_Gate.gate_total_balance(config_ocar.gate_key, config_ocar.gate_secret, True)['total']
+    total_total_balance += totalBalance_Bittrex.bittrex_balance(config_ocar.bittrex_key, config_ocar.bittrex_secret, True)['total']
+    total_total_balance += totalBalance_Bybit.total_bybit_balance(config_ocar.bybit_key, config_ocar.bybit_secret, 'Bybit', True)['total']
+    sub_total_balance += totalBalance_Bybit.total_bybit_balance(config_ocar.bybit_sub_key, config_ocar.bybit_sub_secret, 'Bybit-sub', True)['total']
     overall_total = sub_total_balance + total_total_balance
     total = [{'Total balance no sub':round(total_total_balance, 2), 'Total sub balance':round(sub_total_balance, 2),'Overall Total balance':round(overall_total, 2)}]
     return total
@@ -53,7 +53,7 @@ def get_total_balance():
 def get_all_assets():
     all_coins = []
 
-    for i in [totalBalance_OKX.okx_wallet_total(config.okx_key, config.okx_secret, config.okx_passphrase, 'OKX', False)['coins'], totalBalance_OKX.okx_wallet_total(config.okx_key_sub, config.okx_secret_sub, config.okx_pass_sub, 'OKX-sub', False)['coins'], totalBalance_Binance.total_binance_balance(config.binance_key, config.binance_secret, 'Binance', False)['coins'], totalBalance_Binance.total_binance_balance(config.binance_sub_key, config.binance_sub_secret, 'Binance-sub', False)['coins'], totalBalance_Kraken.total_kraken_balance(config.kraken_futures_key, config.kraken_futures_secret, config.kraken_key, config.kraken_secret, False)['coins'], totalBalance_Huobi.total_huobi_balance(config.huobi_key, config.huobi_secret, config.huobi_spot_id, 'Huobi', False)['coins'], totalBalance_Huobi.total_huobi_balance(config.huobi_key_sub, config.huobi_secret_sub, config.huobi_spot_id_sub, 'Huobi-sub', False)['coins'], totalBalance_Bitmex.bitmex_wallet(config.bitmex_key, config.bitmex_secret, False)['coins'], totalBalance_Gate.gate_total_balance(config.gate_key, config.gate_secret, False)['coins'], totalBalance_Bittrex.bittrex_balance(config.bittrex_key, config.bittrex_secret, False)['coins'], totalBalance_Bybit.total_bybit_balance(config.bybit_key, config.bybit_secret, 'Bybit', False)['coins'], totalBalance_Bybit.total_bybit_balance(config.bybit_sub_key, config.bybit_sub_secret, 'Bybit-sub', False)['coins']]:
+    for i in [totalBalance_OKX.okx_wallet_total(config_ocar.okx_key, config_ocar.okx_secret, config_ocar.okx_passphrase, 'OKX', False)['coins'], totalBalance_OKX.okx_wallet_total(config_ocar.okx_key_sub, config_ocar.okx_secret_sub, config_ocar.okx_pass_sub, 'OKX-sub', False)['coins'], totalBalance_Binance.total_binance_balance(config_ocar.binance_key, config_ocar.binance_secret, 'Binance', False)['coins'], totalBalance_Binance.total_binance_balance(config_ocar.binance_sub_key, config_ocar.binance_sub_secret, 'Binance-sub', False)['coins'], totalBalance_Kraken.total_kraken_balance(config_ocar.kraken_futures_key, config_ocar.kraken_futures_secret, config_ocar.kraken_key, config_ocar.kraken_secret, False)['coins'], totalBalance_Huobi.total_huobi_balance(config_ocar.huobi_key, config_ocar.huobi_secret, config_ocar.huobi_spot_id, 'Huobi', False)['coins'], totalBalance_Huobi.total_huobi_balance(config_ocar.huobi_key_sub, config_ocar.huobi_secret_sub, config_ocar.huobi_spot_id_sub, 'Huobi-sub', False)['coins'], totalBalance_Bitmex.bitmex_wallet(config_ocar.bitmex_key, config_ocar.bitmex_secret, False)['coins'], totalBalance_Gate.gate_total_balance(config_ocar.gate_key, config_ocar.gate_secret, False)['coins'], totalBalance_Bittrex.bittrex_balance(config_ocar.bittrex_key, config_ocar.bittrex_secret, False)['coins'], totalBalance_Bybit.total_bybit_balance(config_ocar.bybit_key, config_ocar.bybit_secret, 'Bybit', False)['coins'], totalBalance_Bybit.total_bybit_balance(config_ocar.bybit_sub_key, config_ocar.bybit_sub_secret, 'Bybit-sub', False)['coins']]:
         if str(type(i)) == "<class 'dict'>":
             all_coins.append(i)
         else:

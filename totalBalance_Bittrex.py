@@ -1,6 +1,6 @@
 import bittrex_wallet as bw
 import pandas as pd
-import config
+import config_ocar
 import shared_Functions as sf
 
 exchange = 'Bittrex'
