@@ -1,5 +1,5 @@
 import kraken_wallet as kw
-import config
+import config, re
 import pandas as pd
 import shared_Functions as sf
 
@@ -31,14 +31,27 @@ def kraken_spot_wallet_balance(api_key, api_secret):
             #print(i, spot_wallet['result'][i])
             total_balance += float(spot_wallet['result'][i])
             if round(float(spot_wallet['result'][i]),2) != 0:
-                asset = {
-                    'Coin':i, 
-                    'Contract':i,
-                    'QTY':round(float(spot_wallet['result'][i]),2), 
-                    'USD Value':round(float(spot_wallet['result'][i]),2),
-                    'Exchange':exchange, 
-                    'Account':'SPOT'}
-                assets.append(asset)
+                if len(i.split('.')) > 1:
+                    x = i.split('.')
+                    pattern = r'[0-9]'
+                    y = re.sub(pattern, '', x[0])
+                    asset = {
+                        'Coin':y, 
+                        'Contract':y,
+                        'QTY':round(float(spot_wallet['result'][i]),2), 
+                        'USD Value':round(float(spot_wallet['result'][i]),2),
+                        'Exchange':exchange, 
+                        'Account':'SPOT'}
+                    assets.append(asset)
+                else:
+                    asset = {
+                        'Coin':i, 
+                        'Contract':i,
+                        'QTY':round(float(spot_wallet['result'][i]),2), 
+                        'USD Value':round(float(spot_wallet['result'][i]),2),
+                        'Exchange':exchange, 
+                        'Account':'SPOT'}
+                    assets.append(asset)
 
     return [total_balance, 'SPOT', assets]
 
@@ -98,8 +111,8 @@ def kraken_futures_wallet_balance(api_key, api_secret):
             'Exchange':exchange, 
             'Account':'SPOT'}
         assets.append(asset)
-        
 
+        
     return [total_balance, 'USD-Margin', assets]
 
 def total_kraken_balance(api_key_f, api_secret_f, api_key_s, api_secret_s, breakdown):
@@ -116,7 +129,6 @@ def total_kraken_balance(api_key_f, api_secret_f, api_key_s, api_secret_s, break
         balance = {'Exchange':'Kraken', i[1]:i[0]}
         balance_break.append(balance)
 
-    #print(coin_assets)
     #print(pd.DataFrame(assets), '\nTotal kraken balance: ', total_balance)
 
     if breakdown:
@@ -128,3 +140,6 @@ def total_kraken_balance(api_key_f, api_secret_f, api_key_s, api_secret_s, break
     return kraken
 
 #print(total_kraken_balance(config.kraken_futures_key, config.kraken_futures_secret, config.kraken_key, config.kraken_secret, False))
+#kraken_futures_wallet_balance(config.kraken_futures_key, config.kraken_futures_secret)
+#total_kraken_balance(config.kraken_futures_key, config.kraken_futures_secret, config.kraken_key, config.kraken_secret, False)
+#print(kraken_spot_wallet_balance(config.kraken_key, config.kraken_secret))
