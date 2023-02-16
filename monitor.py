@@ -89,8 +89,6 @@ def usdt_Value():
 
     assets = get_all_assets()
     positions = get_all_positions()
-
-    position_value = get_all_positions.total_asset_value
     
 
     #sf.saveExcel('positionings.xlsx', positions)
@@ -158,11 +156,9 @@ def usdt_Value():
 
     #sf.saveExcel('cond_assets.xlsx', cond_assets)
 
-    calc_value = (float(total_asset_value) + float(position_value))/2
-
     #print('pos: ', position_value, ' ass: ', total_asset_value)
     #print('calculated value: ', calc_value)
-    return [cond_assets, cond_currency, total_asset_value]
+    return [cond_assets, cond_currency]
 
 def Leverage():
     
@@ -196,5 +192,3 @@ def Leverage():
                     }
                     levers.append(lever)
     return levers
-
-Leverage()
