@@ -35,6 +35,7 @@ def kraken_spot_wallet_balance(api_key, api_secret):
                     x = i.split('.')
                     pattern = r'[0-9]'
                     y = re.sub(pattern, '', x[0])
+                    account = 'Earn'
                     try:
                         coin_price = kw.get_kraken_current_price(y, 'USD')
                         total = float(spot_wallet['result'][i])*float(coin_price)
@@ -44,7 +45,7 @@ def kraken_spot_wallet_balance(api_key, api_secret):
                         'QTY':round(float(spot_wallet['result'][i]),2), 
                         'USD Value':total,
                         'Exchange':exchange, 
-                        'Account':'SPOT'}
+                        'Account':account}
                         assets.append(asset)
                     except:
                         asset = {

@@ -1,5 +1,6 @@
 import binance_PnL as bp
 import shared_Functions as sf
+import config_ocar
 
 def get_usdt_pos(api_key, api_secret, exchange):
     usdtPos = bp.binance_send_signed_request("https://fapi.binance.com", 'GET', '/fapi/v2/positionRisk', api_key, api_secret, payload={})
@@ -46,13 +47,18 @@ def get_usdt_pos(api_key, api_secret, exchange):
                             'Leverage':i['leverage'],
                             'Mark Price':round(float(i['markPrice']),2),
                             'Liq Price':round(float(i['liquidationPrice']),2),
-                            'Liq Risk %':(float(i['liquidationPrice'])-float(i['markPrice']))/float(i['markPrice'])
+                            'Liq Risk %':round(float(i['liquidationPrice']),2)
                         }
                     assets.append(asset)
 
                     posAbsolute += abs(USD_Value)
                     posUSDValue += USD_Value
             except:
+                try:
+                    liq = round(float(i['liquidationPrice']),2)
+                    liqRisk = (liq-float(i['markPrice']))/float(i['markPrice'])
+                except:
+                    liq = 'Null'
                 if i['symbol'][:4] == '1000':  
                     asset = {
                             'Coin':i['symbol'][4:-4],
@@ -63,8 +69,8 @@ def get_usdt_pos(api_key, api_secret, exchange):
                             'Account':'USDT-M',
                             'Leverage':i['leverage'],
                             'Mark Price':round(float(i['markPrice']),2),
-                            'Liq Price':'Null',
-                            'Liq Risk %':'Null'
+                            'Liq Price':liq,
+                            'Liq Risk %':liq
                         }
                     assets.append(asset)
 
@@ -80,8 +86,8 @@ def get_usdt_pos(api_key, api_secret, exchange):
                             'Account':'USDT-M',
                             'Leverage':i['leverage'],
                             'Mark Price':round(float(i['markPrice']),2),
-                            'Liq Price':'Null',
-                            'Liq Risk %':'Null'
+                            'Liq Price':liq,
+                            'Liq Risk %':liqRisk
                         }
                     assets.append(asset)
 
@@ -136,6 +142,11 @@ def get_coinM_pos(api_key, api_secret, exchange):
                 posAbsolute += abs(USD_Value)
                 posUSDValue += USD_Value
             except:
+                try:
+                    liq = round(float(i['liquidationPrice']),2)
+                    liqRisk = (liq-float(i['markPrice']))/float(i['markPrice'])
+                except:
+                    liq = 'Null'
                 asset = {
                         'Coin':i['symbol'].split('_')[0][:-3],
                         'Contract':i['symbol'],
@@ -145,8 +156,8 @@ def get_coinM_pos(api_key, api_secret, exchange):
                         'Account':'COIN-M',
                         'Leverage':i['leverage'],
                         'Mark Price':round(float(i['markPrice']),2),
-                        'Liq Price':'Null',
-                        'Liq Risk %':'Null'
+                        'Liq Price':liq,
+                        'Liq Risk %':liqRisk
                     }
                 assets.append(asset)
 

@@ -93,7 +93,7 @@ def leverValues(api_key, api_secret, exchange):
     leverValue = []
 
     for i in [get_usdt_pos(api_key, api_secret, exchange)]:
-        lever = {'absolute':i['posValue'][0], 'USD Value':i['posValue'][1], 'Account':'futures', 'exchange':'Bybit'}
+        lever = {'absolute':i['posValue'][0], 'USD Value':i['posValue'][1], 'Account':'USDT-M', 'exchange':'Bybit'}
         leverValue.append(lever)
 
     return leverValue

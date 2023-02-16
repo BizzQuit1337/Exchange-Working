@@ -74,7 +74,7 @@ def get_earn_balance(api_key, api_secret, api_pass, exchange):
                     'QTY':round(qty,6), 
                     'USD Value':round(usd, 2),
                     'Exchange':exchange, 
-                    'Account':'Trading'}
+                    'Account':'Earn'}
             assets.append(asset)
         except:
             usd = qty*1
@@ -84,7 +84,7 @@ def get_earn_balance(api_key, api_secret, api_pass, exchange):
                     'QTY':round(qty,6), 
                     'USD Value':round(usd, 2),
                     'Exchange':exchange, 
-                    'Account':'Trading'}
+                    'Account':'Earn'}
             assets.append(asset)
 
     return [total_balance, 'Earn', assets]
@@ -118,7 +118,7 @@ def okxLeaverage(api_key, api_secret, api_pass, exchange):
     for i in [okx_trading_wallet_balance(api_key, api_secret, api_pass, exchange)]:
         for j in i[2]:
             if j['Coin'] == 'USDT':
-                lever = {'USD Value':j['USD Value'], 'Account':i[1], 'exchange':'OKX'}
+                lever = {'USD Value':j['USD Value'], 'Account':'USDT-M', 'exchange':'OKX'}
                 leverageValue.append(lever)
     return leverageValue
 

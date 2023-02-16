@@ -7,6 +7,8 @@ import all_positions as ap
 import totalBalance_Binance, totalBalance_Kraken, totalBalance_OKX, totalBalance_Huobi, totalBalance_Bitmex, totalBalance_Gate, totalBalance_Bittrex, totalBalance_Bybit
 
 def get_all_positions():
+    #get_all_positions.total_asset_value = 0
+    total_assets_value = 0
     positions = []
     errorCount = 0
     total_USD = 0
@@ -28,7 +30,18 @@ def get_all_positions():
                             errorCount += 1
     sorted_positions = sorted(positions, key=lambda d: d['Coin'])  
 
+    #for i in sorted_positions:
+        #get_all_positions.total_asset_value += float(i['USD Value'])
+    for i in sorted_positions:
+        if float(i['USD Value']) < 0:
+            total_assets_value += i['USD Value']
+
+    print(sum(abs(total_assets_value)))
+
+
     return sorted_positions
+
+get_all_positions()
 
 def get_total_balance():
     balances = []
@@ -72,9 +85,13 @@ def get_all_assets():
 
 def usdt_Value():
     total_assets = []
+    total_asset_value = 0
 
     assets = get_all_assets()
     positions = get_all_positions()
+
+    position_value = get_all_positions.total_asset_value
+    
 
     #sf.saveExcel('positionings.xlsx', positions)
 
@@ -116,7 +133,7 @@ def usdt_Value():
                 coinUSD += float(i['USD Value'])
                 coinQTY += float(i['QTY'])
             else:
-                if preCoin == 'USD' or preCoin == 'USDT' or preCoin == 'USDC' or preCoin == 'EUR' or preCoin == 'BUSD':
+                if preCoin == 'USD' or preCoin == 'USDT' or preCoin == 'USDC' or preCoin == 'EUR' or preCoin == 'BUSD' or preCoin == 'ZUSD':
                     currency = {
                         'Coin':preCoin,
                         'QTY':coinQTY,
@@ -130,6 +147,7 @@ def usdt_Value():
                         'USD Value':coinUSD
                     }
                     cond_assets.append(asset)
+                #total_asset_value += float(coinUSD)
                 preCoin = i['Coin']
                 coinUSD = i['USD Value']
                 coinQTY = i['QTY']
@@ -140,7 +158,11 @@ def usdt_Value():
 
     #sf.saveExcel('cond_assets.xlsx', cond_assets)
 
-    return [cond_assets, cond_currency]
+    calc_value = (float(total_asset_value) + float(position_value))/2
+
+    #print('pos: ', position_value, ' ass: ', total_asset_value)
+    #print('calculated value: ', calc_value)
+    return [cond_assets, cond_currency, total_asset_value]
 
 def Leverage():
     
@@ -148,7 +170,6 @@ def Leverage():
     bbdf = sf.displayDataFrame(asset_bal, False, True)
     asset_pos = ap.get_leverageValue()
     bpdf = sf.displayDataFrame(asset_pos, False, True)
-
     levers = []
 
     for i in bbdf:
@@ -175,3 +196,5 @@ def Leverage():
                     }
                     levers.append(lever)
     return levers
+
+Leverage()

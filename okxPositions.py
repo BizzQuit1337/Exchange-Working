@@ -67,7 +67,7 @@ def get_usdt_pos(api_key, api_secret, api_pass, exchange):
                     posAbsolute += abs(USD_Value)
                     posUSDValue += USD_Value
 
-    OKX = {'assets':assets, 'posValue':[posAbsolute, posUSDValue, 'Trading']}
+    OKX = {'assets':assets, 'posValue':[posAbsolute, posUSDValue, 'Earn']}
 
     return OKX
 
@@ -75,7 +75,7 @@ def leverValues(api_key, api_secret, api_pass, exchange):
     leverValue = []
 
     for i in [get_usdt_pos(api_key, api_secret, api_pass, exchange)]:
-        lever = {'absolute':i['posValue'][0], 'USD Value':i['posValue'][1], 'Account':i['posValue'][2], 'exchange':'OKX'}
+        lever = {'absolute':i['posValue'][0], 'USD Value':i['posValue'][1], 'Account':'USDT-M', 'exchange':'OKX'}
         leverValue.append(lever)
 
     return leverValue
