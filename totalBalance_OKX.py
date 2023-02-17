@@ -76,6 +76,7 @@ def get_earn_balance(api_key, api_secret, api_pass, exchange):
                     'Exchange':exchange, 
                     'Account':'Earn'}
             assets.append(asset)
+            total_balance += usd
         except:
             usd = qty*1
             asset = {
@@ -86,6 +87,7 @@ def get_earn_balance(api_key, api_secret, api_pass, exchange):
                     'Exchange':exchange, 
                     'Account':'Earn'}
             assets.append(asset)
+            total_balance += usd
 
     return [total_balance, 'Earn', assets]
 
@@ -110,6 +112,9 @@ def okx_wallet_total(api_key, api_secret, api_pass, exchange, breakdown):
         print('Total',f"{total_balance:,.2f}")
     okx = {'total':total_balance, 'coins':coin_assets}
 
+    #print(pd.DataFrame(okx['coins'][2]))
+    #print(total_balance)
+
     return okx
 
 def okxLeaverage(api_key, api_secret, api_pass, exchange):
@@ -124,4 +129,5 @@ def okxLeaverage(api_key, api_secret, api_pass, exchange):
 
 #print(okxLeaverage(config_ocar.okx_key, config_ocar.okx_secret, config_ocar.okx_passphrase, 'll'))
 
-#okx_wallet_total(config_ocar.okx_key, config_ocar.okx_secret, config_ocar.okx_passphrase, 'okx')
+#okx_wallet_total(config_ocar.okx_key, config_ocar.okx_secret, config_ocar.okx_passphrase, 'popadour', False)
+#get_earn_balance(config_ocar.okx_key, config_ocar.okx_secret, config_ocar.okx_passphrase, 'popadour')

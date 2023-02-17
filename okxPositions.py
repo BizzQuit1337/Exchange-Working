@@ -80,4 +80,4 @@ def leverValues(api_key, api_secret, api_pass, exchange):
 
     return leverValue
 
-get_usdt_pos(config_ocar.okx_key, config_ocar.okx_secret, config_ocar.okx_passphrase, 'shit stain')
+#get_usdt_pos(config_ocar.okx_key, config_ocar.okx_secret, config_ocar.okx_passphrase, 'shit stain')

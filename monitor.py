@@ -7,8 +7,8 @@ import all_positions as ap
 import totalBalance_Binance, totalBalance_Kraken, totalBalance_OKX, totalBalance_Huobi, totalBalance_Bitmex, totalBalance_Gate, totalBalance_Bittrex, totalBalance_Bybit
 
 def get_all_positions():
-    #get_all_positions.total_asset_value = 0
-    total_assets_value = 0
+    get_all_positions.total_asset_value = 0
+    #total_assets_value = 0
     positions = []
     errorCount = 0
     total_USD = 0
@@ -34,14 +34,11 @@ def get_all_positions():
         #get_all_positions.total_asset_value += float(i['USD Value'])
     for i in sorted_positions:
         if float(i['USD Value']) < 0:
-            total_assets_value += i['USD Value']
+            get_all_positions.total_asset_value += abs(i['USD Value'])
 
-    print(sum(abs(total_assets_value)))
 
 
     return sorted_positions
-
-get_all_positions()
 
 def get_total_balance():
     balances = []
@@ -60,7 +57,8 @@ def get_total_balance():
     total_total_balance += totalBalance_Bybit.total_bybit_balance(config_ocar.bybit_key, config_ocar.bybit_secret, 'Bybit', True)['total']
     sub_total_balance += totalBalance_Bybit.total_bybit_balance(config_ocar.bybit_sub_key, config_ocar.bybit_sub_secret, 'Bybit-sub', True)['total']
     overall_total = sub_total_balance + total_total_balance
-    total = [{'Total balance no sub':round(total_total_balance, 2), 'Total sub balance':round(sub_total_balance, 2),'Overall Total balance':round(overall_total, 2)}]
+    total_investment = usdt_Value()[2]
+    total = [{'Total balance no sub':round(total_total_balance, 2), 'Total sub balance':round(sub_total_balance, 2),'Overall Total balance':round(overall_total, 2), 'Total Investment':round(total_investment,2)}]
     return total
 
 def get_all_assets():
@@ -89,6 +87,8 @@ def usdt_Value():
 
     assets = get_all_assets()
     positions = get_all_positions()
+
+    position_value = get_all_positions.total_asset_value
     
 
     #sf.saveExcel('positionings.xlsx', positions)
@@ -156,9 +156,16 @@ def usdt_Value():
 
     #sf.saveExcel('cond_assets.xlsx', cond_assets)
 
-    #print('pos: ', position_value, ' ass: ', total_asset_value)
-    #print('calculated value: ', calc_value)
-    return [cond_assets, cond_currency]
+    for i in assets:
+        if i['Coin'] == 'USD':
+            break
+        if i['Coin'] != 'EUR' and i['Coin'] != 'BUSD':
+            total_asset_value += abs(float(i[ 'USD Value']))
+
+
+    calc_value = abs((float(total_asset_value) + float(position_value))/2)
+
+    return [cond_assets, cond_currency, calc_value]
 
 def Leverage():
     
